@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main() {
+    int n,et[10],wt[10],tt[10];
+    double aw=0,at=0;
+    printf("Enter the number of processes");
+    scanf("%d",&n);
+    printf("\nEnter Execution time for each process");
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&et[i]);
+    }
+    wt[0]=0;
+    tt[0]=et[0];
+    
+    for(int i=1;i<n;i++)
+    {
+        wt[i]=et[i-1]+wt[i-1];
+        tt[i]=tt[i-1]+et[i];
+    }
+    for(int i=0;i<n;i++)
+    {
+        aw=aw+wt[i];
+        at=at+tt[i];
+    }
+    aw=aw/n;
+    at=at/n;
+    printf("\nBurst Time \t Wait Time \t Turnaround Time");
+    for(int i=0;i<n; i++)
+        printf("\n %d     %d     %d ",et[i],wt[i],tt[i]);
+    printf("\nAverage wait time = %f",aw);
+    printf("\nAverage trunaround time = %f",at);
+    
+    return 0;
+}
