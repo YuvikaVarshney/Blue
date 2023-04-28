@@ -1,0 +1,108 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int data;
+    struct node *link;
+} *top1=NULL,*top2=NULL;
+
+int count=0;
+
+
+void push1(int val)
+{
+    struct node * temp=(struct node *)malloc(sizeof(struct node));
+    if(temp==NULL)
+        printf("Queue is full");
+    else
+    {
+        temp->data=val;
+        if(top1==NULL)
+        {
+            temp->link=NULL;
+            top1=temp;
+        }
+        else
+        {
+            temp->link=top1;
+            top1=temp;
+        }
+    }
+}
+int pop1()
+{
+    struct node * t1=top1;
+    int a=top1->data;
+    free(t1);
+    return a;
+}
+void push2(int val)
+{
+    struct node * temp=(struct node *)malloc(sizeof(struct node));
+    
+    temp->data=val;
+    if(top2==NULL)
+    {
+        temp->link=NULL;
+        top2=temp;
+    }
+    else
+    {
+        temp->link=top2;
+        top2=temp;
+    }
+}
+int pop2()
+{
+    struct node * t1=top2;
+    int a=top2->data;
+    free(t1);
+    return a;
+}
+
+void enqueue()
+{
+    int data;
+    printf("Enter data\n");
+    scanf("%d",&data);
+    push1(data);
+    count++;
+}
+void dequeue(int val)
+{
+    if(top1==NULL)
+    {
+        printf("Queue is empty");
+    }
+    int i;
+    for(i=0;i<count;i++)
+    {
+        push2(pop1());
+    }
+    pop2();
+    count--;
+    for(i=0;i<count;i++)
+    {
+        push1(pop2());
+    }
+}
+
+void display(struct node* head)
+{
+    if(head==NULL)
+    {
+        return;
+    }
+    display(head->link);
+    
+    printf("%d",head->data);
+}
+
+
+int main() 
+{
+    // Write C code here
+    printf("Hello world");
+
+    return 0;
+}
